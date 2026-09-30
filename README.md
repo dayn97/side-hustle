@@ -11,7 +11,9 @@
 
 演示账号：`admin@example.com` / `demo1234`。
 
-未配置 Stripe/PayPal 时，页面使用 DEMO provider 创建订单，方便端到端验收。配置密钥后，生产环境应在支付创建接口中替换为真实 checkout session/order，并将供应商 webhook 指向 `/api/payments/webhook/{provider}`。
+文章打赏允许游客创建订单，无需注册或登录；会员购买仍需登录。游客订单的 `userId` 为空，后台显示“游客 / Guest”。未配置支付密钥时，创建的是待支付的 DEMO 订单，不会扣款，也不会显示已付款。
+
+Stripe Checkout 已接入：配置 `STRIPE_SECRET_KEY` 和 `STRIPE_WEBHOOK_SECRET`，并将 Stripe webhook 指向 `/api/payments/webhook/stripe`。只有验签通过的已支付事件才会更新订单。会员为一次性购买 30 天使用期，尚不自动续费。PayPal 结账及 webhook 验证仍为待接入项，不能用于真实收款。
 
 ## Docker / VPS
 
