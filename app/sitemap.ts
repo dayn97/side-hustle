@@ -1,3 +1,4 @@
 import { MetadataRoute } from "next";
 import { db } from "@/lib/db";
+export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> { const base = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"; const articles = await db.article.findMany({ where: { status: "PUBLISHED" }, select: { slug: true, updatedAt: true } }); return [{ url: base, changeFrequency: "daily", priority: 1 }, { url: `${base}/articles`, changeFrequency: "daily", priority: 0.9 }, ...articles.map(article => ({ url: `${base}/articles/${article.slug}`, lastModified: article.updatedAt, changeFrequency: "weekly" as const, priority: 0.8 }))]; }
