@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
 import Link from "next/link";
+import type { Metadata } from "next";
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> { const article = await db.article.findUnique({ where: { slug: params.slug }, select: { titleZh: true, titleEn: true, excerptZh: true, coverUrl: true, slug: true } }); if (!article) return {}; return { title: article.titleZh, description: article.excerptZh || article.titleEn, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: "article", title: article.titleZh, description: article.excerptZh || article.titleEn, url: `/articles/${article.slug}`, images: article.coverUrl ? [article.coverUrl] : undefined } }; }
 export default async function Article({ params }: { params: { slug: string } }) {
   const a = await db.article.findUnique({ where: { slug: params.slug }, include: { author: true } });
   if (!a || a.status !== "PUBLISHED") return notFound();

@@ -1,2 +1,4 @@
 import Link from "next/link"; import { db } from "@/lib/db";
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "文章", description: "浏览 Inkwell 上的中英文文章与真实经验。", alternates: { canonical: "/articles" } };
 export default async function Articles(){ const list=await db.article.findMany({where:{status:"PUBLISHED"},orderBy:{createdAt:"desc"},include:{author:true}}); return <section style={{padding:"52px 0"}}><div className="kicker">The publication</div><h1 style={{fontSize:52}}>All stories</h1><div className="grid">{list.map(a=><article className="card" key={a.id}><span className="tag">{a.category||"Essay"}</span>{a.isPremium&&<span className="tag">会员专属</span>}<h3><Link href={`/articles/${a.slug}`}>{a.titleZh}</Link></h3><p className="meta">{a.titleEn}</p><p>{a.excerptZh}</p><div className="meta">{a.author.name||a.author.email}</div></article>)}</div></section> }
