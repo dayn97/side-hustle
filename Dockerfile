@@ -1,13 +1,13 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
-COPY package.json pnpm-lock.yaml* package-lock.json* ./
-RUN corepack enable && (pnpm install --frozen-lockfile || pnpm install)
+COPY package.json package-lock.json* ./
+RUN npm install
 
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npx prisma generate && pnpm build
+RUN npx prisma generate && npm run build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
