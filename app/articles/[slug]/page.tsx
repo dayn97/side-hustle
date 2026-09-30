@@ -3,12 +3,15 @@ import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { getLocale } from "@/lib/locale";
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> { const article = await db.article.findUnique({ where: { slug: params.slug }, select: { titleZh: true, titleEn: true, excerptZh: true, coverUrl: true, slug: true } }); if (!article) return {}; return { title: article.titleZh, description: article.excerptZh || article.titleEn, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: "article", title: article.titleZh, description: article.excerptZh || article.titleEn, url: `/articles/${article.slug}`, images: article.coverUrl ? [article.coverUrl] : undefined } }; }
 export default async function Article({ params }: { params: { slug: string } }) {
   const a = await db.article.findUnique({ where: { slug: params.slug }, include: { author: true } });
   if (!a || a.status !== "PUBLISHED") return notFound();
   const user = await currentUser();
+  const locale = getLocale();
   const memberActive = Boolean(user?.isMember && (!user.memberUntil || user.memberUntil > new Date()));
   const locked = a.isPremium && !memberActive;
-  return <article className="article"><div className="kicker">{a.category || "Essay"} {a.isPremium && " · Members"}</div><h1>{a.titleZh}</h1><p className="lead">{a.titleEn}</p><div className="meta">By {a.author.name || a.author.email} · {a.createdAt.toLocaleDateString("zh-CN")}</div>{locked ? <div className="notice"><strong>这是会员专属文章</strong><p>订阅会员即可阅读完整内容，同时支持独立写作者。</p><Link className="button" href="/membership">开通会员</Link></div> : <><div className="article-body">{a.contentZh}</div><hr style={{ border: 0, borderTop: "1px solid #e6e0d8", margin: "48px 0" }} /><div className="article-body">{a.contentEn}</div><div style={{ marginTop: 48 }}><Link className="button alt" href={`/support?article=${a.id}`}>☕ 打赏作者</Link></div></>}</article>;
+  const tags = locale === "zh" ? a.tags : a.tagsEn;
+  return <article className="article"><div className="kicker">{a.category || (locale === "zh" ? "随笔" : "Essay")} {a.isPremium && ` · ${locale === "zh" ? "会员专属" : "Members"}`}</div><div className="tag-list">{tags.map((tag,index)=><span className="tag" key={`${tag}-${index}`}>#{tag}</span>)}</div><h1>{locale === "zh" ? a.titleZh : a.titleEn}</h1><p className="lead">{locale === "zh" ? a.excerptZh : a.excerptEn}</p><div className="meta">{locale === "zh" ? "作者" : "By"} {a.author.name || a.author.email} · {a.createdAt.toLocaleDateString(locale === "zh" ? "zh-CN" : "en-US")}</div>{locked ? <div className="notice"><strong>{locale === "zh" ? "这是会员专属文章" : "This story is for members"}</strong><p>{locale === "zh" ? "开通会员即可阅读完整内容，同时支持独立写作者。" : "Become a member to read the full story and support independent writers."}</p><Link className="button" href="/membership">{locale === "zh" ? "开通会员" : "Become a member"}</Link></div> : <><div className="article-body">{locale === "zh" ? a.contentZh : a.contentEn}</div><div style={{ marginTop: 48 }}><Link className="button alt" href={`/support?article=${a.id}`}>☕ {locale === "zh" ? "打赏作者" : "Support the author"}</Link></div></>}</article>;
 }

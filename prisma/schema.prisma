@@ -60,6 +60,7 @@ model Article {
   coverUrl    String?
   category    String?
   tags        String[]
+  tagsEn      String[]      @default([])
   isPremium   Boolean       @default(false)
   status      ArticleStatus @default(DRAFT)
   authorId    String
