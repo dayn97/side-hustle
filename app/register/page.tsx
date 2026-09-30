@@ -1,2 +1,9 @@
-"use client"; import { useState } from "react"; import { useRouter } from "next/navigation";
-export default function Register(){const [form,setForm]=useState({name:"",email:"",password:""});const [error,setError]=useState("");const router=useRouter();async function submit(e:React.FormEvent){e.preventDefault();const r=await fetch("/api/auth/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(form)});if(!r.ok){setError(await r.text());return}router.push("/dashboard")}return <form className="form" onSubmit={submit}><div className="kicker">Join inkwell</div><h2>Create your account</h2>{error&&<div className="notice">{error}</div>}<div className="field"><label>Name</label><input required value={form.name} onChange={e=>setForm({...form,name:e.target.value})}/></div><div className="field"><label>Email</label><input required type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/></div><div className="field"><label>Password（至少 8 位）</label><input required minLength={8} type="password" value={form.password} onChange={e=>setForm({...form,password:e.target.value})}/></div><button className="button">Create account</button></form>}
+import AuthForm from "@/components/AuthForm";
+import { googleConfigured } from "@/lib/google";
+import { getLocale } from "@/lib/locale";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Create account", robots: { index: false, follow: false } };
+export default function Register() {
+  return <AuthForm register locale={getLocale()} googleEnabled={googleConfigured()} />;
+}

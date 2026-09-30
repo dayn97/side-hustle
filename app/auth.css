@@ -1,0 +1,7 @@
+.google-button { display: flex; justify-content: center; align-items: center; width: 100%; max-width: 560px; border: 1px solid #d9d0c6; border-radius: 4px; background: white; color: #24211e; padding: 13px 19px; font: 14px Arial, sans-serif; cursor: pointer; }
+.google-button:hover { border-color: #8c847b; }
+.google-button:focus-visible { outline: 2px solid #a35b3f; outline-offset: 3px; }
+.google-button:disabled { cursor: default; opacity: .55; }
+.auth-divider { display: flex; align-items: center; gap: 14px; margin: 28px 0; color: #8c847b; font: 12px Arial, sans-serif; }
+.auth-divider::before, .auth-divider::after { content: ""; height: 1px; flex: 1; background: #e6e0d8; }
+.button:disabled { opacity: .6; cursor: wait; }
