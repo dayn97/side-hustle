@@ -59,6 +59,7 @@ model Article {
   contentEn   String
   coverUrl    String?
   category    String?
+  categoryEn  String?
   tags        String[]
   tagsEn      String[]      @default([])
   isPremium   Boolean       @default(false)
