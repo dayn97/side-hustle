@@ -1,2 +1,2 @@
 import { redirect } from "next/navigation"; import { currentUser } from "@/lib/auth"; import { db } from "@/lib/db"; import Editor from "@/components/Editor";
-export default async function Edit({params}:{params:{id:string}}){const user=await currentUser();if(!user)redirect("/login");const article=await db.article.findUnique({where:{id:params.id}});if(!article||article.authorId!==user.id)redirect("/dashboard");return <Editor article={article}/>}
+export default async function Edit({params}:{params:{id:string}}){const user=await currentUser();if(!user)redirect("/login");const article=await db.article.findUnique({where:{id:params.id}});if(!article||(article.authorId!==user.id&&user.role!=="ADMIN"))redirect("/dashboard");return <Editor article={article}/>}
