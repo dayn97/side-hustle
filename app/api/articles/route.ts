@@ -1,0 +1,2 @@
+import { NextResponse } from "next/server"; import { db } from "@/lib/db"; import { requireUser } from "@/lib/auth";
+export async function POST(req:Request){try{const user=await requireUser();const b=await req.json();const a=await db.article.create({data:{...b,authorId:user.id,tags:b.tags||[]}});return NextResponse.json(a);}catch(e:any){return new NextResponse(e.message,{status:e.message==="UNAUTHORIZED"?401:400});}}
