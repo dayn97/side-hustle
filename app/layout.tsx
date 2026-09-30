@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./auth.css";
+import "./waterfall.css";
 import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { getLocale } from "@/lib/locale";
@@ -18,6 +19,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
           <Link className="brand" href="/">inkwell.</Link>
           <nav className="navlinks">
             <Link href="/articles">{locale === "zh" ? "文章" : "Explore"}</Link>
+            <Link href="/waterfall">{locale === "zh" ? "瀑布流" : "Waterfall"}</Link>
             <Link href="/dashboard">{locale === "zh" ? "写作" : "Write"}</Link>
             {user ? (
               <Link href="/dashboard">{user.name || user.email}</Link>

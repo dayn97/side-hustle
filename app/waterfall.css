@@ -1,0 +1,22 @@
+.stories-page { padding: 52px 0 12px; }
+.stories-title { max-width: 760px; margin-bottom: 42px; font-size: clamp(42px, 6vw, 60px); }
+.waterfall-grid { columns: 3; column-gap: 24px; padding-bottom: 48px; }
+.waterfall-card { display: inline-block; width: 100%; margin: 0 0 24px; overflow: hidden; break-inside: avoid; vertical-align: top; border: 1px solid #e8e0d6; border-radius: 9px; background: #fffefa; box-shadow: 0 3px 14px rgb(45 35 22 / 4%); }
+.waterfall-card:hover { box-shadow: 0 8px 24px rgb(45 35 22 / 9%); }
+.waterfall-cover { display: block; overflow: hidden; background: #eee8df; }
+.waterfall-cover img { display: block; width: 100%; height: auto; transition: transform .3s ease; }
+.waterfall-cover:hover img { transform: scale(1.025); }
+.waterfall-content { padding: 18px 20px 20px; }
+.waterfall-labels { display: flex; flex-wrap: wrap; gap: 5px; }
+.waterfall-labels .tag { margin-right: 4px; }
+.waterfall-heading { margin: 12px 0 9px; font-size: 23px; line-height: 1.2; letter-spacing: -.45px; }
+.waterfall-heading a:hover { color: #a35b3f; }
+.waterfall-excerpt { margin: 0 0 12px; color: #6d665f; font-size: 15px; line-height: 1.65; }
+.waterfall-card .tag-list { margin: 11px 0 14px; }
+.waterfall-byline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; color: #8c847b; font: 12px Arial, sans-serif; }
+.waterfall-read { display: inline-block; margin-top: 15px; color: #a35b3f; font: 13px Arial, sans-serif; }
+.waterfall-read:hover { text-decoration: underline; }
+.empty-stories { padding: 32px 0 80px; color: #8c847b; }
+@media (max-width: 1000px) { .waterfall-grid { columns: 2; } }
+@media (max-width: 650px) { .stories-page { padding-top: 38px; } .stories-title { margin-bottom: 28px; } .waterfall-grid { columns: 1; } }
+@media (prefers-reduced-motion: reduce) { .waterfall-cover img { transition: none; } }
