@@ -12,6 +12,7 @@
 .waterfall-heading { margin: 12px 0 9px; font-size: 23px; line-height: 1.2; letter-spacing: -.45px; }
 .waterfall-heading a:hover { color: #a35b3f; }
 .waterfall-excerpt { margin: 0 0 12px; color: #6d665f; font-size: 15px; line-height: 1.65; }
+.waterfall-post-body { white-space: pre-wrap; overflow-wrap: anywhere; }
 .waterfall-card .tag-list { margin: 11px 0 14px; }
 .waterfall-byline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; color: #8c847b; font: 12px Arial, sans-serif; }
 .waterfall-read { display: inline-block; margin-top: 15px; color: #a35b3f; font: 13px Arial, sans-serif; }
