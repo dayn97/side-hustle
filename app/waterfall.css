@@ -13,6 +13,24 @@
 .waterfall-heading a:hover { color: #a35b3f; }
 .waterfall-excerpt { margin: 0 0 12px; color: #6d665f; font-size: 15px; line-height: 1.65; }
 .waterfall-post-body { white-space: pre-wrap; overflow-wrap: anywhere; }
+.content-interactions { margin-top: 18px; padding-top: 14px; border-top: 1px solid #eee8df; font-family: Arial, sans-serif; }
+.interaction-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.interaction-button { display: inline-flex; align-items: center; gap: 5px; padding: 6px 9px; border: 0; border-radius: 5px; color: #777067; background: transparent; font: 13px Arial, sans-serif; cursor: pointer; }
+.interaction-button:hover, .interaction-button.is-liked { color: #a35b3f; background: #f7eee7; }
+.interaction-button:disabled { opacity: .55; cursor: wait; }
+.interaction-message { color: #a35b3f; font-size: 13px; }
+.comments-panel { margin-top: 16px; scroll-margin-top: 24px; }
+.comments-panel h3 { margin: 0 0 12px; font: 600 15px Arial, sans-serif; letter-spacing: 0; }
+.comment-form, .reply-form { display: grid; gap: 8px; justify-items: start; margin: 12px 0 20px; }
+.comment-form textarea, .reply-form textarea { min-height: 72px; resize: vertical; font: 14px/1.5 Arial, sans-serif; }
+.comment-form .button, .reply-form .button { padding: 8px 13px; font: 13px Arial, sans-serif; }
+.comment-list { display: grid; gap: 14px; }
+.comment { border-top: 1px solid #eee8df; padding-top: 11px; font: 14px/1.55 Arial, sans-serif; }
+.comment-meta { display: flex; gap: 10px; align-items: baseline; color: #5f5952; font-size: 12px; }
+.comment-meta time { color: #9a9289; }
+.comment p { margin: 7px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.reply-link { padding: 0; border: 0; background: none; color: #a35b3f; font: 12px Arial, sans-serif; cursor: pointer; }
+.comment-reply { margin: 12px 0 0 16px; padding-left: 12px; border-left: 2px solid #eee8df; }
 .waterfall-card .tag-list { margin: 11px 0 14px; }
 .waterfall-byline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; color: #8c847b; font: 12px Arial, sans-serif; }
 .waterfall-read { display: inline-block; margin-top: 15px; color: #a35b3f; font: 13px Arial, sans-serif; }

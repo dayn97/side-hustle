@@ -24,6 +24,10 @@ enum PaymentProvider {
   USDT
   DEMO
 }
+enum ContentType {
+  ARTICLE
+  WATERFALL
+}
 enum OrderStatus {
   PENDING
   PAID
@@ -44,6 +48,8 @@ model User {
   articles     Article[]
   waterfallPosts WaterfallPost[]
   orders       Order[]
+  likes        ContentLike[]
+  comments     ContentComment[]
 }
 model Category {
   id        String   @id @default(cuid())
@@ -89,6 +95,30 @@ model WaterfallPost {
   updatedAt DateTime      @updatedAt
   @@index([status, createdAt])
   @@index([authorId, updatedAt])
+}
+model ContentLike {
+  id          String      @id @default(cuid())
+  contentType ContentType
+  contentId   String
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+  @@unique([contentType, contentId, userId])
+  @@index([contentType, contentId])
+}
+model ContentComment {
+  id          String           @id @default(cuid())
+  contentType ContentType
+  contentId   String
+  body        String
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parentId    String?
+  parent      ContentComment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies     ContentComment[] @relation("CommentReplies")
+  createdAt   DateTime         @default(now())
+  @@index([contentType, contentId, createdAt])
+  @@index([parentId, createdAt])
 }
 model Order {
   id              String          @id @default(cuid())
