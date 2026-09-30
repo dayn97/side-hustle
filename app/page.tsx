@@ -1,4 +1,2 @@
-import Link from "next/link";
-export default function Home() {
-  return <><section className="hero"><div className="kicker">Independent ideas · 独立思考</div><h1>Stories worth<br />staying for.</h1><p className="lead">一个安静的中英文写作空间。阅读真实经验，分享可执行的方法，也支持你喜欢的作者。</p><Link className="button" href="/articles">开始阅读 →</Link></section><section><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><h2>Latest stories</h2><Link href="/articles" className="meta">View all →</Link></div><div className="grid"><article className="card"><span className="tag">实践</span><h3><Link href="/articles/build-a-small-online-business">把一个小生意做成系统</Link></h3><p className="meta">Turning a Small Business into a System</p><p>从真实成本、分发和风险开始。</p><div className="meta">Inkwell Admin</div></article></div></section></>;
-}
+import { redirect } from "next/navigation";
+export default function Home() { redirect("/articles"); }
